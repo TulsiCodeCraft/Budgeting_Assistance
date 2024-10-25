@@ -1,4 +1,4 @@
-
+import {BrowserRouter , Routes, Route} from "react-router-dom";
 import Landingpage from './pages/landingpage';
 import BudgetManager from './pages/Dashboard/BudgetManager';
 import FinancialGoals from './pages/Dashboard/FinancialGoals';
@@ -23,10 +23,10 @@ function App() {
           {/* landing page */}
           <Route path="/" element={<Landingpage/>} /> 
           <Route path="/dashboard-screen" element={<DashboardLayout />} />
-          <Route path="/Budget" element={<BudgetManager/>} /> 
-          <Route path="/FinancialGoals" element={<FinancialGoals/>} /> 
-          <Route path="/FinicialInsights" element={<FinancialInsights/>} />
-          <Route path="/DebtManeger" element={<DebtManager/>} /> 
+          <Route path="/Budget-manager" element={<BudgetManager/>} /> 
+          <Route path="/financial-goals" element={<FinancialGoals/>} /> 
+          <Route path="/financial-insights" element={<FinancialInsights/>} />
+          <Route path="/debt-manager" element={<DebtManager/>} /> 
 
 
 

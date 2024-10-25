@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Landingpage from './pages/landingpage';
 import BudgetManager from './pages/Dashboard/BudgetManager';
 import FinancialGoals from './pages/Dashboard/FinancialGoals';
@@ -9,18 +9,12 @@ import DashboardLayout from './pages/Dashboard/dashboard'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
-
-
-import LandingPage from './pages/landingpage'
-
-
-
 function App() {
   return (
 
 
     <>
-      <Router>
+      <BrowserRouter>
         <Routes>
           {/* landing page */}
           <Route path="/" element={<Landingpage/>} /> 
@@ -32,7 +26,7 @@ function App() {
 
 
         </Routes>   
-      </Router>
+      </BrowserRouter>
     </>
   );
       

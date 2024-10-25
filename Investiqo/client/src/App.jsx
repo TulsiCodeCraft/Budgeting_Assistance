@@ -1,5 +1,6 @@
 
-import './App.css'
+
+import LandingPage from './pages/landingpage'
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
 
-     <div className='text-blue-800'>hello</div>
+     <LandingPage/>
     
 
     </>

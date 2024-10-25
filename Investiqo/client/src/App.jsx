@@ -6,7 +6,11 @@ import FinancialInsights from './pages/Dashboard/FinancialInsights';
 import React from 'react'
 import DashboardLayout from './pages/Dashboard/dashboard'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
+
+import LandingPage from './pages/landingpage'
+import DebtManager from './pages/Dashboard/DebtManager';
 
 
 function App() {
@@ -21,7 +25,9 @@ function App() {
           <Route path="/dashboard-screen" element={<DashboardLayout />} />
           <Route path="/Budget" element={<BudgetManager/>} /> 
           <Route path="/FinancialGoals" element={<FinancialGoals/>} /> 
-          <Route path="/FinicialInsights" element={<FinancialInsights/>} /> 
+          <Route path="/FinicialInsights" element={<FinancialInsights/>} />
+          <Route path="/DebtManeger" element={<DebtManager/>} /> 
+
 
 
 

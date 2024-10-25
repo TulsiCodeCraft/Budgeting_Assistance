@@ -1,17 +1,28 @@
+import React from 'react'
+import DashboardLayout from './pages/Dashboard/dashboard'
 
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
 
 
 function App() {
   
 
   return (
-    <>
 
-     <div className='text-blue-800'>hello</div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/dashboard-screen" element={<DashboardLayout />} />
+        </Routes>
+      </BrowserRouter>
+      </>
+
     
 
-    </>
+
+
   )
 }
 

@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
   Wallet,
   Target,
   Receipt,
   BookOpen,
-  PiggyBank,
   CreditCard,
-  BellRing,
-  Settings,
-  HelpCircle,
   ChevronLeft,
-  Menu
 } from 'lucide-react';
 
 const DashboardLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
 
   const menuItems = [
-    
-    { title: 'Budget Planner', icon: <Wallet size={20} /> },
-    { title: 'Financial Goals', icon: <Target size={20} /> },
-    { title: 'Expense Tracking', icon: <Receipt size={20} /> },
-    { title: 'Financial Insights', icon: <BookOpen size={20} /> },
-    { title: 'Debt Management', icon: <CreditCard size={20} /> },
-  
+    { title: 'Budget Planner', icon: <Wallet size={20} />, path: '/budget' },
+    { title: 'Financial Goals', icon: <Target size={20} />, path: '/goals' },
+    { title: 'Expense Tracking', icon: <Receipt size={20} />, path: '/expenses' },
+    { title: 'Financial Insights', icon: <BookOpen size={20} />, path: '/insights' },
+    { title: 'Debt Management', icon: <CreditCard size={20} />, path: '/debt' },
   ];
 
   return (
@@ -51,10 +46,12 @@ const DashboardLayout = () => {
         {/* Navigation Menu */}
         <nav className="mt-4">
           {menuItems.map((item, index) => (
-            <a
+            <Link
               key={index}
-              href="#"
-              className="flex items-center px-4 py-3 text-white hover:bg-orange-500 transition-colors"
+              to={item.path}
+              className={`flex items-center px-4 py-3 text-white hover:bg-orange-500 transition-colors ${
+                location.pathname === item.path ? 'bg-orange-500' : ''
+              }`}
             >
               <span className="flex items-center justify-center">
                 {item.icon}
@@ -62,37 +59,23 @@ const DashboardLayout = () => {
               {!isCollapsed && (
                 <span className="ml-4">{item.title}</span>
               )}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
-        {/* Top Header */}
         <header className="bg-white shadow-sm">
           <div className="px-6 py-4">
-            <h2 className="text-xl font-semibold text-gray-800">Dashboard</h2>
+            <h2 className="text-xl font-semibold text-gray-800">
+              {menuItems.find(item => item.path === location.pathname)?.title || 'Dashboard'}
+            </h2>
           </div>
         </header>
 
-        {/* Main Content Area */}
         <main className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Sample Cards - Replace with actual content */}
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Monthly Budget</h3>
-              <p className="text-gray-600">Track your monthly spending and savings</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Savings Goals</h3>
-              <p className="text-gray-600">Monitor your progress towards financial goals</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Recent Transactions</h3>
-              <p className="text-gray-600">View your latest financial activities</p>
-            </div>
-          </div>
+          <Outlet />
         </main>
       </div>
     </div>

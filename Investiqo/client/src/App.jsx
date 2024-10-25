@@ -6,10 +6,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 
+import LandingPage from './pages/landingpage'
+
+
+
 function App() {
   
 
   return (
+
 
     <>
       <BrowserRouter>
@@ -19,11 +24,13 @@ function App() {
       </BrowserRouter>
       </>
 
-    
+
+   
+
 
 
 
   )
 }
 
-export default App
+export default App;

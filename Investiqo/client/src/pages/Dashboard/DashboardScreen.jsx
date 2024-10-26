@@ -8,19 +8,66 @@ import {
   BookOpen,
   CreditCard,
   ChevronLeft,
+  Menu,
+  Bell,
+  Search,
+  Settings,
+  User,
+  LogOut,
 } from 'lucide-react';
 
 const DashboardLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const location = useLocation();
 
   const menuItems = [
-    { title: 'Budget Planner', icon: <Wallet size={20} />, path: 'budget-manager' }, // Removed leading slash
-    { title: 'Financial Goals', icon: <Target size={20} />, path: 'financial-goals' }, // Removed leading slash
-    { title: 'Expense Tracking', icon: <Receipt size={20} />, path: 'expense-tracker' }, // Check this one too
-    { title: 'Financial Insights', icon: <BookOpen size={20} />, path: 'financial-insights' }, // Removed leading slash
-    { title: 'Debt Management', icon: <CreditCard size={20} />, path: 'debt-manager' }, // Removed leading slash
+    { 
+      title: 'Budget Planner', 
+      icon: <Wallet size={20} />, 
+      path: 'budget-manager',
+      gradientClasses: 'from-orange-300 via-orange-400 to-orange-500'
+    },
+    { 
+      title: 'Financial Goals', 
+      icon: <Target size={20} />, 
+      path: 'financial-goals',
+      gradientClasses: 'from-orange-400 via-orange-500 to-orange-600'
+    },
+    { 
+      title: 'Expense Tracking', 
+      icon: <Receipt size={20} />, 
+      path: 'expense-tracker',
+      gradientClasses: 'from-orange-500 via-orange-600 to-orange-700'
+    },
+    { 
+      title: 'Financial Insights', 
+      icon: <BookOpen size={20} />, 
+      path: 'financial-insights',
+      gradientClasses: 'from-orange-600 via-orange-700 to-orange-800'
+    },
+    { 
+      title: 'Debt Management', 
+      icon: <CreditCard size={20} />, 
+      path: 'debt-manager',
+      gradientClasses: 'from-orange-700 via-orange-800 to-orange-900'
+    },
   ];
+
+  const handleProfileClick = () => {
+    setIsProfileOpen(!isProfileOpen);
+  };
+
+  const getCurrentPageTitle = () => {
+    const currentMenuItem = menuItems.find(item => location.pathname.endsWith(item.path));
+    if (!currentMenuItem) {
+      return {
+        title: 'Dashboard',
+        gradientClasses: 'from-orange-300 via-orange-500 to-orange-700'
+      };
+    }
+    return currentMenuItem;
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -48,7 +95,7 @@ const DashboardLayout = () => {
           {menuItems.map((item, index) => (
             <Link
               key={index}
-              to={item.path} // This should be relative
+              to={item.path}
               className={`flex items-center px-4 py-3 text-white hover:bg-orange-500 transition-colors ${
                 location.pathname.endsWith(item.path) ? 'bg-orange-500' : ''
               }`}
@@ -66,16 +113,74 @@ const DashboardLayout = () => {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
+        {/* Enhanced Header with Navigation */}
         <header className="bg-white shadow-sm">
-          <div className="px-6 py-4">
-            <h2 className="text-xl font-semibold text-gray-800">
-              {menuItems.find(item => location.pathname.endsWith(item.path))?.title || 'Dashboard'}
-            </h2>
+          <div className="flex items-center justify-between px-6 py-4">
+            {/* Left side - Gradient Title */}
+            <div className="flex items-center">
+              <h2 className={`text-3xl font-bold bg-gradient-to-r ${getCurrentPageTitle().gradientClasses} bg-clip-text text-transparent`}>
+                {getCurrentPageTitle().title}
+              </h2>
+            </div>
+
+            {/* Right side - Navigation Items */}
+            <div className="flex items-center space-x-6">
+              {/* Search */}
+              <div className="hidden md:flex items-center bg-gray-100 rounded-lg px-3 py-2">
+                <Search size={20} className="text-gray-400" />
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="bg-transparent border-none focus:outline-none ml-2 w-48"
+                />
+              </div>
+
+              {/* Notifications */}
+              <button className="p-2 hover:bg-gray-100 rounded-lg relative">
+                <Bell size={20} className="text-gray-600" />
+                <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+              </button>
+
+              {/* Settings */}
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <Settings size={20} className="text-gray-600" />
+              </button>
+
+              {/* Profile Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={handleProfileClick}
+                  className="flex items-center space-x-3 hover:bg-gray-100 rounded-lg p-2"
+                >
+                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
+                    <User size={20} className="text-white" />
+                  </div>
+                  <div className="hidden md:block text-left">
+                    <p className="text-sm font-medium text-gray-700">John Doe</p>
+                    <p className="text-xs text-gray-500">john@example.com</p>
+                  </div>
+                </button>
+
+                {/* Profile Dropdown Menu */}
+                {isProfileOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 border border-gray-200">
+                    <Link to="/profile" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      <User size={16} className="mr-2" />
+                      Profile Settings
+                    </Link>
+                    <button className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      <LogOut size={16} className="mr-2" />
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </header>
 
         <main className="p-6">
-          <Outlet /> {/* This is crucial for rendering nested routes */}
+          <Outlet />
         </main>
       </div>
     </div>

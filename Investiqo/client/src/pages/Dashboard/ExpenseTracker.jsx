@@ -59,6 +59,7 @@ const ExpenseTracker = () => {
     { name: 'Remaining', value: 2000 },
   ];
 
+
   const StatCard = ({ title, value, icon: Icon, trend, trendValue }) => (
     <Card className="bg-white">
       <CardContent className="p-6">

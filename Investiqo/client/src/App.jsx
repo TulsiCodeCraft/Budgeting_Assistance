@@ -3,14 +3,16 @@ import Landingpage from './pages/landingpage';
 import BudgetManager from './pages/Dashboard/BudgetManager';
 import FinancialGoals from './pages/Dashboard/FinancialGoals';
 import FinancialInsights from './pages/Dashboard/FinancialInsights';
+import ExpenseTracker from './pages/Dashboard/ExpenseTracker';
 import React from 'react'
-
-import DashboardLayout from './pages/Dashboard/DashboardScreen'
-
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 
 
-import DashboardLayout from './pages/Dashboard/dashboard'
+
+
+
+import DashboardLayout from './pages/Dashboard/DashboardScreen';
 
 
 
@@ -38,13 +40,14 @@ function App() {
           <Route path="/budget" element={<BudgetManager/>} /> 
           <Route path="/goals" element={<FinancialGoals/>} /> 
           <Route path="/insights" element={<FinancialInsights/>} /> 
-          <Route path="/expenses" element={<FinancialInsights/>} /> 
+         
           <Route path="/debt" element={<FinancialInsights/>} /> 
 
           <Route path="/Budget" element={<BudgetManager/>} /> 
           <Route path="/FinancialGoals" element={<FinancialGoals/>} /> 
           <Route path="/FinicialInsights" element={<FinancialInsights/>} />
           <Route path="/DebtManeger" element={<DebtManager/>} /> 
+          <Route path="/expenses" element={<ExpenseTracker/>} /> 
 
 
 

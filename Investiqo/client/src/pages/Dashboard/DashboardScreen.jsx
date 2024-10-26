@@ -15,11 +15,11 @@ const DashboardLayout = () => {
   const location = useLocation();
 
   const menuItems = [
-    { title: 'Budget Planner', icon: <Wallet size={20} />, path: '/budget' },
-    { title: 'Financial Goals', icon: <Target size={20} />, path: '/goals' },
-    { title: 'Expense Tracking', icon: <Receipt size={20} />, path: '/expenses' },
-    { title: 'Financial Insights', icon: <BookOpen size={20} />, path: '/insights' },
-    { title: 'Debt Management', icon: <CreditCard size={20} />, path: '/debt' },
+    { title: 'Budget Planner', icon: <Wallet size={20} />, path: 'budget-manager' }, // Removed leading slash
+    { title: 'Financial Goals', icon: <Target size={20} />, path: 'financial-goals' }, // Removed leading slash
+    { title: 'Expense Tracking', icon: <Receipt size={20} />, path: 'expense-tracker' }, // Check this one too
+    { title: 'Financial Insights', icon: <BookOpen size={20} />, path: 'financial-insights' }, // Removed leading slash
+    { title: 'Debt Management', icon: <CreditCard size={20} />, path: 'debt-manager' }, // Removed leading slash
   ];
 
   return (
@@ -48,9 +48,9 @@ const DashboardLayout = () => {
           {menuItems.map((item, index) => (
             <Link
               key={index}
-              to={item.path}
+              to={item.path} // This should be relative
               className={`flex items-center px-4 py-3 text-white hover:bg-orange-500 transition-colors ${
-                location.pathname === item.path ? 'bg-orange-500' : ''
+                location.pathname.endsWith(item.path) ? 'bg-orange-500' : ''
               }`}
             >
               <span className="flex items-center justify-center">
@@ -69,13 +69,13 @@ const DashboardLayout = () => {
         <header className="bg-white shadow-sm">
           <div className="px-6 py-4">
             <h2 className="text-xl font-semibold text-gray-800">
-              {menuItems.find(item => item.path === location.pathname)?.title || 'Dashboard'}
+              {menuItems.find(item => location.pathname.endsWith(item.path))?.title || 'Dashboard'}
             </h2>
           </div>
         </header>
 
         <main className="p-6">
-          <Outlet />
+          <Outlet /> {/* This is crucial for rendering nested routes */}
         </main>
       </div>
     </div>

@@ -1,10 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, BarChart2, Bell, Book, CheckCircle, Lock, Target, Wallet, PlayCircle } from 'lucide-react';
+import { ArrowRight, BarChart2, CheckCircle, Lock, PlayCircle } from 'lucide-react';
 import Navbar from './Navbar';
-
+import { Wallet, Target, BookOpen, PiggyBank, TrendingUp, DollarSign, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 const LandingPage = () => {
   const [activeStat, setActiveStat] = useState(null);
   const [isVisible, setIsVisible] = useState({});
+
+  const features = [
+    {
+      icon: <PiggyBank className="w-10 h-10 text-orange-500" />,
+      title: "Budget Manager",
+      desc: "Create and manage custom budgets with smart allocation suggestions and real-time spending insights",
+      gradient: "from-orange-500/10 to-orange-50",
+      url: "/budget-manager"
+    },
+    {
+      icon: <TrendingUp className="w-10 h-10 text-orange-500" />,
+      title: "Expense Tracker",
+      desc: "Monitor daily expenses, categorize transactions automatically, and get spending pattern analysis",
+      gradient: "from-orange-400/10 to-orange-50",
+      url: "/expense-tracker"
+    },
+    {
+      icon: <BookOpen className="w-10 h-10 text-orange-500" />,
+      title: "Financial Insights",
+      desc: "Access personalized financial lessons, interactive tutorials, and expert-curated content",
+      gradient: "from-orange-300/10 to-orange-50",
+      url: "/financial-insights"
+    },
+    {
+      icon: <Target className="w-10 h-10 text-orange-500" />,
+      title: "Financial Goals",
+      desc: "Set and track custom financial goals with milestone tracking and achievement rewards",
+      gradient: "from-orange-500/10 to-orange-50",
+      url: "/financial-goals"
+    },
+    {
+      icon: <DollarSign className="w-10 h-10 text-orange-500" />,
+      title: "Debt Manager",
+      desc: "Track and optimize debt repayment with smart strategies and progress visualization",
+      gradient: "from-orange-400/10 to-orange-50",
+      url: "/debt-manager"
+    },
+    {
+      icon: <Clock className="w-10 h-10 text-orange-500" />,
+      title: "Bill Reminders",
+      desc: "Never miss a payment with smart bill tracking and automated payment reminders",
+      gradient: "from-orange-300/10 to-orange-50",
+      url: "#"
+    }
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,30 +121,73 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="px-4 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="mb-12 text-4xl font-bold text-center text-gray-900">
-            Key Features
+      <section className="px-4 py-24 bg-gradient-to-b from-orange-50/50 to-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 font-['Poppins']">
+            Powerful Financial Tools
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: <Wallet className="w-8 h-8 text-orange-500" />, title: "Budget Tracking", desc: "Manage your budget across categories with real-time insights" },
-              { icon: <Target className="w-8 h-8 text-orange-500" />, title: "Goal Setting", desc: "Set financial goals and track your progress" },
-              { icon: <Book className="w-8 h-8 text-orange-500" />, title: "Daily Tips & Education", desc: "Receive personalized tips to improve your financial knowledge" },
-              { icon: <Bell className="w-8 h-8 text-orange-500" />, title: "Smart Notifications", desc: "Get alerts for bill payments, spending, and more" }
-            ].map((feature, index) => (
-              <div 
-                key={index} 
-                className="p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 bg-white group"
-              >
-                <div className="mb-4 transform transition-transform group-hover:scale-110">{feature.icon}</div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-900">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Everything you need to take control of your finances and achieve your financial goals
+          </p>
         </div>
-      </section>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <Link
+              key={index}
+              to={feature.url}
+              className="relative group block"
+            >
+              {/* Card */}
+              <div className="h-full p-8 rounded-2xl bg-white border border-orange-100 shadow-sm 
+                           transition-all duration-300 hover:shadow-xl hover:-translate-y-1
+                           cursor-pointer">
+                {/* Icon Container */}
+                <div className={`w-16 h-16 mb-6 rounded-xl flex items-center justify-center 
+                              bg-gradient-to-br ${feature.gradient}
+                              transform transition-transform group-hover:scale-110`}>
+                  {feature.icon}
+                </div>
+
+                {/* Content */}
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.desc}
+                </p>
+
+                {/* Subtle arrow indicator */}
+                <div className="absolute bottom-8 right-8 opacity-0 transform translate-x-2 
+                              transition-all duration-300 group-hover:opacity-100 
+                              group-hover:translate-x-0">
+                  <svg 
+                    className="w-6 h-6 text-orange-500" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 5l7 7-7 7" 
+                    />
+                  </svg>
+                </div>
+
+                {/* Hover Effect Overlay */}
+                <div className="absolute inset-0 rounded-2xl transition-opacity duration-300 
+                              opacity-0 group-hover:opacity-100
+                              bg-gradient-to-br from-orange-500/5 to-transparent 
+                              pointer-events-none" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
 
       {/* How It Works Section */}
       <section id="how-it-works" className="px-4 py-20 bg-gray-50">

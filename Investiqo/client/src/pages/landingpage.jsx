@@ -88,10 +88,10 @@ const LandingPage = () => {
               Track expenses, set goals, get personalized tips, and master your money all in one place.
             </p>
             <div className="flex items-center justify-center space-x-4">
-              <button className="px-8 py-4 text-lg font-semibold text-orange-600 bg-white rounded-full hover:bg-orange-50 transition-all transform hover:scale-105 hover:shadow-lg flex items-center">
+              <Link to="/dashboard-screen" className="px-8 py-4 text-lg font-semibold text-orange-600 bg-white rounded-full hover:bg-orange-50 transition-all transform hover:scale-105 hover:shadow-lg flex items-center">
                 Get Started for Free
                 <ArrowRight className="ml-2" />
-              </button>
+              </Link>
               <button className="flex items-center px-6 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
                 <PlayCircle className="mr-2" />
                 Watch Demo

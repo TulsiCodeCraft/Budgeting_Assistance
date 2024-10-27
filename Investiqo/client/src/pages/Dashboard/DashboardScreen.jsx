@@ -14,6 +14,11 @@ import {
   Settings,
   User,
   LogOut,
+  TrendingUp,
+  ArrowRight,
+  DollarSign,
+  PieChart,
+  Clock
 } from 'lucide-react';
 
 const DashboardLayout = () => {
@@ -26,31 +31,61 @@ const DashboardLayout = () => {
       title: 'Budget Planner', 
       icon: <Wallet size={20} />, 
       path: 'budget-manager',
-      gradientClasses: 'from-orange-300 via-orange-400 to-orange-500'
+      gradientClasses: 'from-orange-300 via-orange-400 to-orange-500',
+      stats: [
+        { label: 'Monthly Budget', value: '$4,500' },
+        { label: 'Spent', value: '$2,845' },
+        { label: 'Remaining', value: '$1,655' }
+      ],
+      trend: '+12% from last month'
     },
     { 
       title: 'Financial Goals', 
       icon: <Target size={20} />, 
       path: 'financial-goals',
-      gradientClasses: 'from-orange-400 via-orange-500 to-orange-600'
+      gradientClasses: 'from-orange-400 via-orange-500 to-orange-600',
+      stats: [
+        { label: 'Active Goals', value: '3' },
+        { label: 'On Track', value: '2' },
+        { label: 'Progress', value: '67%' }
+      ],
+      trend: '2 goals near completion'
     },
     { 
       title: 'Expense Tracking', 
       icon: <Receipt size={20} />, 
       path: 'expense-tracker',
-      gradientClasses: 'from-orange-500 via-orange-600 to-orange-700'
+      gradientClasses: 'from-orange-500 via-orange-600 to-orange-700',
+      stats: [
+        { label: 'This Month', value: '$2,845' },
+        { label: 'Categories', value: '8' },
+        { label: 'Latest', value: '$42.50' }
+      ],
+      trend: '15 transactions today'
     },
     { 
       title: 'Financial Insights', 
       icon: <BookOpen size={20} />, 
       path: 'financial-insights',
-      gradientClasses: 'from-orange-600 via-orange-700 to-orange-800'
+      gradientClasses: 'from-orange-600 via-orange-700 to-orange-800',
+      stats: [
+        { label: 'Savings Rate', value: '24%' },
+        { label: 'Net Worth', value: '+15%' },
+        { label: 'Score', value: '85/100' }
+      ],
+      trend: 'Improving steadily'
     },
     { 
       title: 'Debt Management', 
       icon: <CreditCard size={20} />, 
       path: 'debt-manager',
-      gradientClasses: 'from-orange-700 via-orange-800 to-orange-900'
+      gradientClasses: 'from-orange-700 via-orange-800 to-orange-900',
+      stats: [
+        { label: 'Total Debt', value: '$12,400' },
+        { label: 'Monthly Payment', value: '$650' },
+        { label: 'Interest Rate', value: '4.5%' }
+      ],
+      trend: '-$2,300 this year'
     },
   ];
 
@@ -67,6 +102,98 @@ const DashboardLayout = () => {
       };
     }
     return currentMenuItem;
+  };
+
+  const DashboardContent = () => {
+    if (!location.pathname.endsWith('dashboard')) {
+      return <Outlet />;
+    }
+
+    return (
+      <div className="space-y-6">
+        {/* Welcome Section */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">Welcome back, John!</h1>
+            <p className="text-gray-600">Here's what's happening with your finances today.</p>
+          </div>
+          <div className="flex items-center space-x-2 text-orange-600">
+            <Clock className="w-5 h-5" />
+            <span className="text-sm">Last updated: Just now</span>
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg p-4 text-white">
+            <div className="flex items-center space-x-2">
+              <DollarSign className="w-5 h-5" />
+              <span className="font-medium">Total Balance</span>
+            </div>
+            <div className="mt-2">
+              <span className="text-2xl font-bold">$24,500</span>
+              <span className="text-sm ml-2">+$1,200 this month</span>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-orange-600 to-orange-700 rounded-lg p-4 text-white">
+            <div className="flex items-center space-x-2">
+              <PieChart className="w-5 h-5" />
+              <span className="font-medium">Monthly Savings</span>
+            </div>
+            <div className="mt-2">
+              <span className="text-2xl font-bold">$850</span>
+              <span className="text-sm ml-2">19% of income</span>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-orange-700 to-orange-800 rounded-lg p-4 text-white">
+            <div className="flex items-center space-x-2">
+              <TrendingUp className="w-5 h-5" />
+              <span className="font-medium">Net Worth</span>
+            </div>
+            <div className="mt-2">
+              <span className="text-2xl font-bold">$156,400</span>
+              <span className="text-sm ml-2">+15% this year</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Summary Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {menuItems.map((card, index) => (
+            <Link
+              key={index}
+              to={card.path}
+              className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={`p-2 rounded-lg bg-gradient-to-r ${card.gradientClasses} text-white`}>
+                      {card.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800">{card.title}</h3>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-gray-400" />
+                </div>
+                
+                <div className="mt-4 grid grid-cols-3 gap-4">
+                  {card.stats.map((stat, statIndex) => (
+                    <div key={statIndex}>
+                      <p className="text-sm text-gray-500">{stat.label}</p>
+                      <p className="text-lg font-semibold text-gray-800">{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 text-sm text-gray-500">
+                  {card.trend}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -180,7 +307,7 @@ const DashboardLayout = () => {
         </header>
 
         <main className="p-6">
-          <Outlet />
+          <DashboardContent />
         </main>
       </div>
     </div>

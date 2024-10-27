@@ -1,5 +1,5 @@
 
-import Landingpage from './pages/landingpage';
+
 import BudgetManager from './pages/Dashboard/BudgetManager';
 import FinancialGoals from './pages/Dashboard/FinancialGoals';
 import FinancialInsights from './pages/Dashboard/FinancialInsights';
@@ -27,6 +27,7 @@ import DashboardLayout from './pages/Dashboard/DashboardScreen';
 
 
 import DebtManager from './pages/Dashboard/DebtManager';
+import LandingPage from './pages/landingpage';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
 
 
        <Routes>
-
+       <Route path="" element={<LandingPage />} />
         {/* Dashboard Layout with nested routes */}
         <Route path="/dashboard-screen" element={<DashboardLayout />}>
           <Route path="budget-manager" element={<BudgetManager />} />
@@ -44,6 +45,7 @@ function App() {
           <Route path="financial-insights" element={<FinancialInsights />} />
           <Route path="debt-manager" element={<DebtManager />} />
           <Route path="expense-tracker" element={<ExpenseTracker />} />
+          
         </Route>
       </Routes>
     </BrowserRouter>
